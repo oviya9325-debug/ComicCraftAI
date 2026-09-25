@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>{{ title }}</h1>
+
+    {% for panel in panels %}
+
+    <div style="
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 2px solid #ddd;
+        border-radius: 12px;
+    ">
+
+        <h2>
+            Panel {{ panel.panel_number }}: {{ panel.title }}
+        </h2>
+
+        <p>
+            Image URL: {{ panel.image_url }}
+        </p>
+
+        <img
+            src="/static/panels/panel_{{ panel.panel_number }}.png"
+            alt="Panel {{ panel.panel_number }}"
+            width="512"
+            height="512"
+        >
+
+        <p>
+            <strong>Caption:</strong>
+            {{ panel.caption }}
+        </p>
+
+        <p>
+            <strong>Narration:</strong>
+            {{ panel.narration }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+    <a href="{{ pdf_url }}" target="_blank">
+        <button>Download PDF</button>
+    </a>
+
+    <br><br>
+
+    <a href="/">
+        Create Another Comic
+    </a>
+
+</div>
+
+{% endblock %}

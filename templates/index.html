@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComicCraft - AI Comic Story Creator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f1ea;
+            color: #222;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 20px 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: #ccc;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            margin-top: 8px;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #111;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        .info {
+            margin-top: 25px;
+            padding: 15px;
+            background: #eee;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎨 ComicCraft</h1>
+    <p>AI Comic Story Creator using Gemini</p>
+</header>
+
+<main>
+
+    <section class="hero">
+        <h2>Turn Your Idea Into a Comic</h2>
+        <p>
+            Create an AI-generated comic story with panels, dialogue,
+            illustrations and PDF export.
+        </p>
+    </section>
+
+    <section class="card">
+        {% if error %}
+<div style="
+    background: #ffe5e5;
+    color: #b00020;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ffb3b3;
+">
+    <strong>Generation Error:</strong><br>
+    {{ error }}
+</div>
+{% endif %}
+
+        <form action="/generate" method="post">
+
+            <div class="grid">
+
+                <div class="full">
+                    <label>Story Prompt</label>
+                    <textarea
+                        name="story_prompt"
+                        rows="5"
+                        placeholder="Example: A brave girl discovers a magical forest and must save it from a mysterious shadow..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label>Character Name</label>
+                    <input
+                        type="text"
+                        name="character_name"
+                        value="Fira"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label>Setting</label>
+                    <input
+                        type="text"
+                        name="setting"
+                        value="enchanted forest"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label>Tone</label>
+                    <select name="tone">
+                        <option value="dramatic">Dramatic</option>
+                        <option value="adventurous">Adventurous</option>
+                        <option value="funny">Funny</option>
+                        <option value="mysterious">Mysterious</option>
+                        <option value="poetic">Poetic</option>
+                        <option value="light-hearted">Light-hearted</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Art Style</label>
+                    <select name="art_style">
+                        <option value="comic book">Comic Book</option>
+                        <option value="anime">Anime</option>
+                        <option value="graphic novel">Graphic Novel</option>
+                        <option value="realistic">Realistic</option>
+                        <option value="watercolor">Watercolor</option>
+                        <option value="pixel art">Pixel Art</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Number of Panels</label>
+                    <input
+                        type="number"
+                        name="panel_count"
+                        value="5"
+                        min="1"
+                        max="8"
+                        required
+                    >
+                </div>
+
+            </div>
+
+            <button type="submit">
+                🚀 Generate Comic
+            </button>
+
+        </form>
+
+        <div class="info">
+            Image Provider: <strong>{{ image_provider }}</strong>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    ComicCraft — AI Comic Story Creator
+</footer>
+
+</body>
+</html>
